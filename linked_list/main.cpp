@@ -29,7 +29,7 @@ private:
     int length;
 
 public:
-    LinkedList(): head(nullptr), tail(nullptr), length(0)
+    LinkedList() : head(nullptr), tail(nullptr), length(0)
     {
     }
 
@@ -52,12 +52,12 @@ public:
         }
     }
 
-
     // List manupulation functions
     void append(int value)
     {
         Node *node = new Node(value);
-        if (length == 0) {
+        if (length == 0)
+        {
             tail = node;
             head = node;
             length += 1;
@@ -69,72 +69,83 @@ public:
         length += 1;
     }
 
-    void prepend(int value) {
+    void prepend(int value)
+    {
         Node *node = new Node(value);
-        if(length == 0){
+        if (length == 0)
+        {
             head = node;
             tail = node;
-            length ++;
+            length++;
             return;
         }
 
         node->next = head;
         head = node;
-        length ++;
+        length++;
     }
 
-    void deleteLast() {
-        if(length == 0) return;
-        if(length == 1) {
+    void deleteLast()
+    {
+        if (length == 0)
+            return;
+        if (length == 1)
+        {
             delete head;
             head = nullptr;
             tail = nullptr;
-            length --;
+            length--;
             return;
         }
 
         Node *oneBeforeLast = head;
-        for(int i = 1; i < length - 1; i++) {
+        for (int i = 1; i < length - 1; i++)
+        {
             oneBeforeLast = oneBeforeLast->next;
         }
 
         delete oneBeforeLast->next;
         oneBeforeLast->next = nullptr;
         tail = oneBeforeLast;
-        length --;
+        length--;
     }
 
-    void deleteFirst() {
-        if(length == 0) return;
-        if(length == 1) {
+    void deleteFirst()
+    {
+        if (length == 0)
+            return;
+        if (length == 1)
+        {
             delete head;
             head = nullptr;
             tail = nullptr;
-            length --;
+            length--;
             return;
         }
         Node *nextHead = head->next;
         delete head;
         head = nextHead;
-        length --;
+        length--;
     }
 
-    Node* get(int index) {
-        Node* emptyNode = new Node(-1);
-        if(length == 0) return emptyNode;
-        if(index >= length) return emptyNode;
+    Node *get(int index)
+    {
+        if (length == 0 || index >= length)
+            return nullptr;
 
-        if(index == 0) return head;
-        if(index == length - 1) return tail;
-
-        Node* nodeToReturn = nullptr;
-        Node* temp = head;
-        for(int i = 0; i < index; i++) {
+        Node *temp = head;
+        for (int i = 0; i < index; i++)
+        {
             temp = temp->next;
-            nodeToReturn = temp;
         }
 
-        return nodeToReturn;
+        return temp;
+    }
+
+    void set(int index, int value)
+    {
+        Node* temp = get(index);
+        temp->value = value;
     }
 
     // Print out functions
@@ -193,7 +204,8 @@ int main()
     myLinked->append(18);
     myLinked->append(20);
 
-    Node* returnNode = myLinked->get(4);
+    Node *returnNode = myLinked->get(9);
+    myLinked->set(9, 144);
 
     cout << "Found this node boss: " << returnNode->value << endl;
     delete myLinked;
