@@ -77,6 +77,20 @@ public:
         length += 1;
     }
 
+    void prepend(int value) {
+        Node *node = new Node(value);
+        if(length == 0){
+            head = node;
+            tail = node;
+            length ++;
+            return;
+        }
+
+        node->next = head;
+        head = node;
+        length ++;
+    }
+
     void deleteLast() {
         if(length == 0) return;
         if(length == 1) {
@@ -95,6 +109,21 @@ public:
         delete oneBeforeLast->next;
         oneBeforeLast->next = nullptr;
         tail = oneBeforeLast;
+        length --;
+    }
+
+    void deleteFirst() {
+        if(length == 0) return;
+        if(length == 1) {
+            delete head;
+            head = nullptr;
+            tail = nullptr;
+            length --;
+            return;
+        }
+        Node *nextHead = head->next;
+        delete head;
+        head = nextHead;
         length --;
     }
 
@@ -145,8 +174,15 @@ int main()
     myLinked->printList();
     myLinked->deleteLast();
     myLinked->printTail();
+    myLinked->prepend(144);
     cout << "------------------" << endl;
     myLinked->printList();
+    myLinked->printHead();
+    cout << "------------------" << endl;
+    myLinked->deleteFirst();
+    myLinked->printList();
+    myLinked->printHead();
+
 
     delete myLinked;
     return 0;
