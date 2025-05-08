@@ -52,16 +52,8 @@ public:
         }
     }
 
-    void printList()
-    {
-        Node *temp = head;
-        while (temp != nullptr)
-        {
-            cout << temp->value << endl;
-            temp = temp->next;
-        }
-    }
 
+    // List manupulation functions
     void append(int value)
     {
         Node *node = new Node(value);
@@ -127,26 +119,25 @@ public:
         length --;
     }
 
-    // void deleteLast() {
-    //     if(length == 0) return;
-    //     Node *temp = head;
-    //     if(length == 1) {
-    //         head = nullptr;
-    //         tail = nullptr;
-    //     } else {
-    //         Node *pre = head;
-    //         while(temp->next) {
-    //             pre = temp;
-    //             temp = temp->next;
-    //         }
-    
-    //         tail = pre;
-    //         tail->next = nullptr;
-    //     }
-    //     delete temp;
-    //     length --;
-    // }
+    Node* get(int index) {
+        Node* emptyNode = new Node(-1);
+        if(length == 0) return emptyNode;
+        if(index >= length) return emptyNode;
 
+        if(index == 0) return head;
+        if(index == length - 1) return tail;
+
+        Node* nodeToReturn = nullptr;
+        Node* temp = head;
+        for(int i = 0; i < index; i++) {
+            temp = temp->next;
+            nodeToReturn = temp;
+        }
+
+        return nodeToReturn;
+    }
+
+    // Print out functions
     void printHead()
     {
         cout << "Head: " << head->value << endl;
@@ -161,29 +152,50 @@ public:
     {
         cout << "Length: " << length << endl;
     }
+
+    void printList()
+    {
+        Node *temp = head;
+        while (temp != nullptr)
+        {
+            cout << temp->value << endl;
+            temp = temp->next;
+        }
+    }
 };
 
 int main()
 {
-    LinkedList *myLinked = new LinkedList(4);
+    LinkedList *myLinked = new LinkedList(2);
 
-    myLinked->append(2);
+    // myLinked->append(2);
+    // myLinked->append(12);
+    // myLinked->append(24);
+    // myLinked->append(32);
+    // myLinked->printList();
+    // myLinked->deleteLast();
+    // myLinked->printTail();
+    // myLinked->prepend(144);
+    // cout << "------------------" << endl;
+    // myLinked->printList();
+    // myLinked->printHead();
+    // cout << "------------------" << endl;
+    // myLinked->deleteFirst();
+    // myLinked->printList();
+    // myLinked->printHead();
+    myLinked->append(4);
+    myLinked->append(6);
+    myLinked->append(8);
+    myLinked->append(10);
     myLinked->append(12);
-    myLinked->append(24);
-    myLinked->append(32);
-    myLinked->printList();
-    myLinked->deleteLast();
-    myLinked->printTail();
-    myLinked->prepend(144);
-    cout << "------------------" << endl;
-    myLinked->printList();
-    myLinked->printHead();
-    cout << "------------------" << endl;
-    myLinked->deleteFirst();
-    myLinked->printList();
-    myLinked->printHead();
+    myLinked->append(14);
+    myLinked->append(16);
+    myLinked->append(18);
+    myLinked->append(20);
 
+    Node* returnNode = myLinked->get(4);
 
+    cout << "Found this node boss: " << returnNode->value << endl;
     delete myLinked;
     return 0;
 }
