@@ -53,20 +53,29 @@ public:
     }
 
     // List manupulation functions
-    void append(int value)
+    // --- Insertion
+    void insert(int index, int value)
     {
-        Node *node = new Node(value);
-        if (length == 0)
+        if (index < 0 || index >= length)
+            return;
+
+        if (index == length)
         {
-            tail = node;
-            head = node;
-            length += 1;
+            append(value);
             return;
         }
 
-        tail->next = node;
-        tail = node;
-        length += 1;
+        if (index == 0)
+        {
+            prepend(value);
+            return;
+        }
+
+        Node *nodeIdx = get(index - 1);
+        Node *newNode = new Node(value);
+        newNode->next = nodeIdx->next;
+        nodeIdx->next = newNode;
+        length++;
     }
 
     void prepend(int value)
@@ -83,6 +92,41 @@ public:
         node->next = head;
         head = node;
         length++;
+    }
+
+    void append(int value)
+    {
+        Node *node = new Node(value);
+        if (length == 0)
+        {
+            tail = node;
+            head = node;
+            length += 1;
+            return;
+        }
+
+        tail->next = node;
+        tail = node;
+        length += 1;
+    }
+
+    // --- Deletion
+    void deleteFirst()
+    {
+        if (length == 0)
+            return;
+        if (length == 1)
+        {
+            delete head;
+            head = nullptr;
+            tail = nullptr;
+            length--;
+            return;
+        }
+        Node *nextHead = head->next;
+        delete head;
+        head = nextHead;
+        length--;
     }
 
     void deleteLast()
@@ -110,27 +154,33 @@ public:
         length--;
     }
 
-    void deleteFirst()
+    void deleteAt(int index)
     {
-        if (length == 0)
+        if (index < 0 || index >= length)
             return;
-        if (length == 1)
+
+        if (index == length)
         {
-            delete head;
-            head = nullptr;
-            tail = nullptr;
-            length--;
-            return;
+            return deleteLast();
         }
-        Node *nextHead = head->next;
-        delete head;
-        head = nextHead;
-        length--;
+
+        if (index == 0)
+        {
+            return deleteFirst();
+        }
+
+        Node *nodeParent = get(index - 1);
+        Node *nodeToDelete = nodeParent->next;
+
+        nodeParent->next = nodeToDelete->next;
+        delete nodeToDelete;
+        length --;
     }
 
+    // --- Get
     Node *get(int index)
     {
-        if (length == 0 || index >= length)
+        if (length == 0 || index < 0 || index >= length)
             return nullptr;
 
         Node *temp = head;
@@ -144,7 +194,7 @@ public:
 
     void set(int index, int value)
     {
-        Node* temp = get(index);
+        Node *temp = get(index);
         temp->value = value;
     }
 
@@ -167,11 +217,13 @@ public:
     void printList()
     {
         Node *temp = head;
+        cout << "----- Printing the entire list ----" << endl;
         while (temp != nullptr)
         {
             cout << temp->value << endl;
             temp = temp->next;
         }
+        cout << "----- End of list print ----" << endl;
     }
 };
 
@@ -208,6 +260,11 @@ int main()
     myLinked->set(9, 144);
 
     cout << "Found this node boss: " << returnNode->value << endl;
+    myLinked->insert(8, 777);
+    myLinked->insert(1, 444);
+    myLinked->printList();
+    myLinked->deleteAt(1);
+    myLinked->printList();
     delete myLinked;
     return 0;
 }
