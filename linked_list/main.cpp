@@ -198,6 +198,23 @@ public:
         temp->value = value;
     }
 
+    // Reverse
+    void reverse() {
+        Node *temp = head;
+        head = tail;
+        tail = temp;
+
+        Node *after = temp->next;
+        Node *before = nullptr;
+
+        for(int i = 0; i < length; i++) {
+            after = temp->next;
+            temp->next = before;
+            before = temp;
+            temp = after;
+        }
+    }
+
     // Print out functions
     void printHead()
     {
@@ -229,41 +246,20 @@ public:
 
 int main()
 {
-    LinkedList *myLinked = new LinkedList(2);
-
-    // myLinked->append(2);
-    // myLinked->append(12);
-    // myLinked->append(24);
-    // myLinked->append(32);
-    // myLinked->printList();
-    // myLinked->deleteLast();
-    // myLinked->printTail();
-    // myLinked->prepend(144);
-    // cout << "------------------" << endl;
-    // myLinked->printList();
-    // myLinked->printHead();
-    // cout << "------------------" << endl;
-    // myLinked->deleteFirst();
-    // myLinked->printList();
-    // myLinked->printHead();
+    LinkedList *myLinked = new LinkedList();
+    
+    myLinked->append(1);
+    myLinked->append(2);
+    myLinked->append(3);
     myLinked->append(4);
+    myLinked->append(5);
     myLinked->append(6);
+    myLinked->append(7);
     myLinked->append(8);
+    myLinked->append(9);
     myLinked->append(10);
-    myLinked->append(12);
-    myLinked->append(14);
-    myLinked->append(16);
-    myLinked->append(18);
-    myLinked->append(20);
-
-    Node *returnNode = myLinked->get(9);
-    myLinked->set(9, 144);
-
-    cout << "Found this node boss: " << returnNode->value << endl;
-    myLinked->insert(8, 777);
-    myLinked->insert(1, 444);
     myLinked->printList();
-    myLinked->deleteAt(1);
+    myLinked->reverse();
     myLinked->printList();
     delete myLinked;
     return 0;
