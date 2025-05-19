@@ -36,6 +36,22 @@ public:
         }
     }
 
+    void prepend(int value) {
+        Node* newNode = new Node(value);
+        if(length == 0) {
+            head = newNode;
+            tail = newNode;
+            length ++;
+            return;
+        }
+
+        Node* temp = head;
+        newNode->next = temp;
+        head = newNode;
+        temp->prev = newNode;
+        length ++;
+    }
+
     void append(int value) {
         Node* newNode = new Node(value);
         if(length == 0) {
@@ -49,6 +65,23 @@ public:
         newNode->prev = tail;
         tail = newNode;
         length ++;
+    }
+
+    void deleteFirst() {
+        if(length == 0) return;
+        if(length == 1) {
+            delete tail;
+            head = nullptr;
+            tail = nullptr;
+            length --;
+            return;
+        }
+        Node* temp = head;
+        head = head->next;
+        head->prev = nullptr;
+        temp->next = nullptr;
+        delete temp;
+        length --;
     }
 
     void deleteLast() {
@@ -102,6 +135,9 @@ int main()
     dll->append(2);
     dll->append(4);
     dll->append(6);
+    dll->prepend(6);
     dll->deleteLast();
+    dll->deleteFirst();
+    dll->printList();
     return 0;
 }
