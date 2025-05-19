@@ -56,7 +56,7 @@ public:
     // --- Insertion
     void insert(int index, int value)
     {
-        if (index < 0 || index >= length)
+        if (index < 0 || index > length)
             return;
 
         if (index == length)
@@ -71,10 +71,12 @@ public:
             return;
         }
 
-        Node *nodeIdx = get(index - 1);
+        Node *prev = get(index - 1);
+        if (!prev) 
+            return;
         Node *newNode = new Node(value);
-        newNode->next = nodeIdx->next;
-        nodeIdx->next = newNode;
+        newNode->next = prev->next;
+        prev->next = newNode;
         length++;
     }
 
@@ -156,7 +158,7 @@ public:
 
     void deleteAt(int index)
     {
-        if (index < 0 || index >= length)
+        if (index < 0 || index > length)
             return;
 
         if (index == length)

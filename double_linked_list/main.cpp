@@ -37,6 +37,36 @@ public:
     }
 
     // Add or modify item
+    void insert(int index, int value)
+    {
+        if (index < 0 || index > length)
+            return;
+
+        if (index == length)
+        {
+            append(value);
+            return;
+        }
+
+        if (index == 0)
+        {
+            prepend(value);
+            return;
+        }
+
+        Node *prev = get(index - 1);
+
+        if (!prev) 
+            return;
+        Node* next = prev->next;
+        Node *newNode = new Node(value);
+        newNode->next = next;
+        newNode->prev = prev;
+        prev->next = newNode;
+        next->prev = newNode;
+        length++;
+    }
+
     void prepend(int value) {
         Node* newNode = new Node(value);
         if(length == 0) {
@@ -110,6 +140,33 @@ public:
         length --;
     }
 
+        void deleteAt(int index)
+    {
+        if (index < 0 || index > length)
+            return;
+
+        if (index == length)
+        {
+            return deleteLast();
+        }
+
+        if (index == 0)
+        {
+            return deleteFirst();
+        }
+
+        Node *nodeParent = get(index - 1);
+
+        if(!nodeParent) return;
+        Node *nodeToDelete = nodeParent->next;
+        Node* afterNode = nodeToDelete->next;
+
+        nodeParent->next = nodeToDelete->next;
+        afterNode->prev = nodeParent;
+        delete nodeToDelete;
+        length --;
+    }
+
     // --- Get
     Node *get(int index)
     {
@@ -174,6 +231,7 @@ int main()
     cout << "Number: " << dll->get(2)->value << endl;
     cout << "Number: " << dll->get(1)->value << endl;
     dll->set(1, 1);
+    dll->insert(1, 144);
     dll->printList();
     return 0;
 }
