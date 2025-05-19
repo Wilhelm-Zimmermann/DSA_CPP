@@ -195,6 +195,7 @@ public:
     void set(int index, int value)
     {
         Node *temp = get(index);
+        if(!temp) return;
         temp->value = value;
     }
 

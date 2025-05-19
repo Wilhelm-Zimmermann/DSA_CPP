@@ -36,6 +36,7 @@ public:
         }
     }
 
+    // Add or modify item
     void prepend(int value) {
         Node* newNode = new Node(value);
         if(length == 0) {
@@ -67,6 +68,15 @@ public:
         length ++;
     }
 
+    void set(int index, int value)
+    {
+        Node *temp = get(index);
+        if(!temp) return;
+        temp->value = value;
+    }
+
+
+    // Delete item
     void deleteFirst() {
         if(length == 0) return;
         if(length == 1) {
@@ -98,6 +108,29 @@ public:
         delete tail->next;
         tail->next = nullptr;
         length --;
+    }
+
+    // --- Get
+    Node *get(int index)
+    {
+        if (length == 0 || index < 0 || index >= length)
+            return nullptr;
+
+        Node *temp = head;
+        if(index < length / 2) {
+            for (int i = 0; i < index; i++)
+            {
+                temp = temp->next;
+            }
+        } else {
+            temp = tail;
+            for (int i = length - 1; i > index; i--)
+            {
+                temp = temp->prev;
+            }
+        }
+
+        return temp;
     }
 
     // Print out functions
@@ -136,8 +169,11 @@ int main()
     dll->append(4);
     dll->append(6);
     dll->prepend(6);
-    dll->deleteLast();
-    dll->deleteFirst();
+    // dll->deleteLast();
+    // dll->deleteFirst();
+    cout << "Number: " << dll->get(2)->value << endl;
+    cout << "Number: " << dll->get(1)->value << endl;
+    dll->set(1, 1);
     dll->printList();
     return 0;
 }
