@@ -39,10 +39,10 @@ public:
     // Add or modify item
     void insert(int index, int value)
     {
-        if (index < 0 || index > length)
+        if (index < 0 || index >= length)
             return;
 
-        if (index == length)
+        if (index == length - 1)
         {
             append(value);
             return;
@@ -140,12 +140,12 @@ public:
         length --;
     }
 
-        void deleteAt(int index)
+    void deleteAt(int index)
     {
-        if (index < 0 || index > length)
+        if (index < 0 || index >= length)
             return;
 
-        if (index == length)
+        if (index == length - 1)
         {
             return deleteLast();
         }
@@ -157,7 +157,7 @@ public:
 
         Node *nodeParent = get(index - 1);
 
-        if(!nodeParent) return;
+        if(!nodeParent || !nodeParent->next) return;
         Node *nodeToDelete = nodeParent->next;
         Node* afterNode = nodeToDelete->next;
 
@@ -232,6 +232,7 @@ int main()
     cout << "Number: " << dll->get(1)->value << endl;
     dll->set(1, 1);
     dll->insert(1, 144);
+    dll->deleteAt(1);
     dll->printList();
     return 0;
 }

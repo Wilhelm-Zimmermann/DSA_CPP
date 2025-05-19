@@ -56,10 +56,10 @@ public:
     // --- Insertion
     void insert(int index, int value)
     {
-        if (index < 0 || index > length)
+        if (index < 0 || index >= length)
             return;
 
-        if (index == length)
+        if (index == length - 1)
         {
             append(value);
             return;
@@ -158,10 +158,10 @@ public:
 
     void deleteAt(int index)
     {
-        if (index < 0 || index > length)
+        if (index < 0 || index >= length)
             return;
 
-        if (index == length)
+        if (index == length - 1)
         {
             return deleteLast();
         }
