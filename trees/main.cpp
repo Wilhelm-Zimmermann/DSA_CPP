@@ -62,6 +62,27 @@ public:
             }
         }
     }
+
+    TreeNode* contains(int value) {
+        if(root == nullptr) return nullptr;
+
+        TreeNode *currNode = root;
+        while(currNode != nullptr) {
+            if(currNode->value == value) return currNode;
+
+            if(value < currNode->value) {
+                currNode = currNode->left;
+                continue;
+            }
+
+            if(value > currNode->value) {
+                currNode = currNode->right;
+                continue;
+            }
+        }
+
+        return nullptr;
+    }
 };
 
 int main()
@@ -73,7 +94,9 @@ int main()
     bst->insert(30);
     bst->insert(40);
     bst->insert(35);
-    
-    cout << "Root: " << bst->root << endl;
+
+    cout << "Root: " << bst->root->value << endl;
+    cout << "Has: " << bst->contains(35) << endl;
+    cout << "Has: " << bst->contains(23) << endl;
     return 0;
 }
