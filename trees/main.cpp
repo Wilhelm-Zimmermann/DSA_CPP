@@ -29,42 +29,36 @@ public:
         root = nullptr;
     }
 
-    void insert(int value)
+    bool insert(int value)
     {
         TreeNode *newNode = new TreeNode(value);
         if (root == nullptr)
         {
             root = newNode;
-            return;
+            return true;
         }
-        bool foundParent = false;
         TreeNode *currNode = root;
-        while (!foundParent)
+        while (true)
         {
-            if(value == currNode->value) foundParent = true;
+            if (value == currNode->value)
+                return false;
             if (value < currNode->value)
             {
-                if (currNode->left != nullptr)
-                {
-                    currNode = currNode->left;
-                }
-                else
+                if (currNode->left == nullptr)
                 {
                     currNode->left = newNode;
-                    foundParent = true;
+                    return true;
                 }
+                currNode = currNode->left;
             }
             else
             {
-                if (currNode->right != nullptr)
-                {
-                    currNode = currNode->right;
-                }
-                else
+                if (currNode->right == nullptr)
                 {
                     currNode->right = newNode;
-                    foundParent = true;
+                    return true;
                 }
+                currNode = currNode->right;
             }
         }
     }
@@ -79,7 +73,7 @@ int main()
     bst->insert(30);
     bst->insert(40);
     bst->insert(35);
-
+    
     cout << "Root: " << bst->root << endl;
     return 0;
 }
