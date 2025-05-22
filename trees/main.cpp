@@ -63,12 +63,12 @@ public:
         }
     }
 
-    TreeNode* contains(int value) {
-        if(root == nullptr) return nullptr;
+    bool contains(int value) {
+        if(root == nullptr) return false;
 
         TreeNode *currNode = root;
         while(currNode != nullptr) {
-            if(currNode->value == value) return currNode;
+            if(currNode->value == value) return true;
 
             if(value < currNode->value) {
                 currNode = currNode->left;
@@ -81,7 +81,7 @@ public:
             }
         }
 
-        return nullptr;
+        return false;
     }
 };
 
