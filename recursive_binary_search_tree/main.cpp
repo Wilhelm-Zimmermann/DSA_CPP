@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -194,27 +195,57 @@ public:
 
         return currentNode->value;
     }
+
+    void BFS()
+    {
+        queue<TreeNode *> queue;
+        queue.push(root);
+
+        while (queue.size() > 0)
+        {
+            TreeNode *currentNode = queue.front();
+            queue.pop();
+            cout << currentNode->value << " ";
+            if (currentNode->left != nullptr)
+            {
+                queue.push(currentNode->left);
+            }
+            if (currentNode->right != nullptr)
+            {
+                queue.push(currentNode->right);
+            }
+        }
+    }
 };
 
 int main()
 {
     RBinarySearchTree *rbst = new RBinarySearchTree();
 
-    rbst->rContains(10);
-    rbst->rInsert(2);
-    rbst->rInsert(1);
-    rbst->rInsert(3);
+    // rbst->rContains(10);
+    // rbst->rInsert(2);
+    // rbst->rInsert(1);
+    // rbst->rInsert(3);
 
-    cout << "\nRoot: " << rbst->root->value;
-    cout << "\n\nRoot->Left: " << rbst->root->left->value;
-    cout << "\n\nRoot->Right: " << rbst->root->right->value;
-    cout << "\n";
+    // cout << "\nRoot: " << rbst->root->value;
+    // cout << "\n\nRoot->Left: " << rbst->root->left->value;
+    // cout << "\n\nRoot->Right: " << rbst->root->right->value;
+    // cout << "\n";
 
-    rbst->deleteNode(2);
+    // rbst->deleteNode(2);
 
-    cout << "\nRoot: " << rbst->root->value;
-    cout << "\n\nRoot->Left: " << rbst->root->left->value;
-    cout << "\n\nRoot->Right: " << rbst->root->right;
-    cout << "\n";
+    // cout << "\nRoot: " << rbst->root->value;
+    // cout << "\n\nRoot->Left: " << rbst->root->left->value;
+    // cout << "\n\nRoot->Right: " << rbst->root->right;
+    // cout << "\n";
+
+    rbst->rInsert(47);
+    rbst->rInsert(76);
+    rbst->rInsert(21);
+    rbst->rInsert(18);
+    rbst->rInsert(27);
+    rbst->rInsert(52);
+    rbst->rInsert(82);
+    rbst->BFS();
     return 0;
 }
