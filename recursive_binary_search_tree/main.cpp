@@ -216,6 +216,24 @@ public:
             }
         }
     }
+
+    void DFSPreOrder(TreeNode *currentNode)
+    {
+        cout << currentNode->value << " ";
+        if (currentNode->left)
+        {
+            DFSPreOrder(currentNode->left);
+        }
+        if (currentNode->right)
+        {
+            DFSPreOrder(currentNode->right);
+        }
+    }
+
+    void DFSPreOrder()
+    {
+        DFSPreOrder(root);
+    }
 };
 
 int main()
@@ -247,5 +265,8 @@ int main()
     rbst->rInsert(52);
     rbst->rInsert(82);
     rbst->BFS();
+    cout << endl;
+    rbst->DFSPreOrder();
+    cout << endl;
     return 0;
 }
