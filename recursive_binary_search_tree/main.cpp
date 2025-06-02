@@ -234,6 +234,25 @@ public:
     {
         DFSPreOrder(root);
     }
+
+    void DFSPostOrder(TreeNode *currentNode)
+    {
+        if (currentNode->left)
+        {
+            DFSPostOrder(currentNode->left);
+        }
+
+        if (currentNode->right)
+        {
+            DFSPostOrder(currentNode->right);
+        }
+        cout << currentNode->value << " ";
+    }
+
+    void DFSPostOrder()
+    {
+        DFSPostOrder(root);
+    }
 };
 
 int main()
@@ -267,6 +286,8 @@ int main()
     rbst->BFS();
     cout << endl;
     rbst->DFSPreOrder();
+    cout << endl;
+    rbst->DFSPostOrder();
     cout << endl;
     return 0;
 }
