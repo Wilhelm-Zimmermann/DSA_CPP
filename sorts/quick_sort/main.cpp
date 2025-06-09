@@ -42,11 +42,8 @@ int main()
 
     int leftIdx = 0;
     int rightIdx = size - 1;
-    // quickSort(array, leftIdx, rightIdx);
+    quickSort(array, leftIdx, rightIdx);
 
-    int pivotIndex = pivot(array, 0, size - 1);
-
-    cout << "The array pivot index is: " << pivotIndex << endl;
     for (auto value : array)
     {
         cout << value << " ";
